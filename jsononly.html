@@ -1,0 +1,39 @@
+<!-- index.html -->
+<form id="item-form">
+    <label for="value">Value:</label>
+    <input type="text" id="value" name="value"><br><br>
+    <label for="ubication">Ubication:</label>
+    <input type="text" id="ubication" name="ubication"><br><br>
+    <label for="description">Description:</label>
+    <input type="text" id="description" name="description"><br><br>
+    <button id="submit-btn">Submit</button>
+  </form>
+  
+  <script>
+    const form = document.getElementById('item-form');
+    const submitBtn = document.getElementById('submit-btn');
+  
+    submitBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const value = document.getElementById('value').value;
+      const ubication = document.getElementById('ubication').value;
+      const description = document.getElementById('description').value;
+  
+      const item = {
+        value,
+        ubication,
+        description
+      };
+  
+      fetch('http://localhost:8080/api/v1/item/guardar', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(item)
+      })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+    });
+  </script>

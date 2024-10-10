@@ -1,0 +1,27 @@
+<!-- index.html -->
+<form id="image-form" enctype="multipart/form-data">
+    <label for="picture">Select an image:</label>
+    <input type="file" id="picture" name="picture"><br><br>
+    <button id="submit-btn">Submit</button>
+  </form>
+  
+  <script>
+    const form = document.getElementById('image-form');
+    const submitBtn = document.getElementById('submit-btn');
+  
+    submitBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const picture = document.getElementById('picture').files[0];
+  
+      const formData = new FormData();
+      formData.append('picture', picture);
+  
+      fetch('http://localhost:8080/api/v1/item/guardarImagen', {
+        method: 'POST',
+        body: formData
+      })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+    });
+  </script>
